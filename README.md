@@ -1,4 +1,10 @@
-# ArcCI Deep Learning
+# Introduction: ArcCI Deep Learning
+
+The project implementation supports the following:
+- Single GPU implementation
+- Multiple GPUs for distributed learning
+
+## **Setup**
 
 ###### Setting up files
 
@@ -19,7 +25,7 @@
 2. With your conda environment active, type ```wandb init``` and follow the prompt to enter your account credentials and select the project you created.
 3. Run ```export WANDB_API_KEY=yourapikey``` with your Weights & Biases API key, which can be found in the settings section of your Weights & Biases account.
 
-###### Running the code
+## **Running the Model**
 
 1. Run ```python train_model.py --log_every_n_steps=5 --backbone_model=fcn_resnet50 --batch_size=60 --gpus=1 --learning_rate=2.1029136274973522e-05 --max_epochs=100 --optimizer=Adam```. Change the number of GPUs for distributed learning support (the default is one).
 2. View your run and runtime metrics in Weights & Biases by navigating to the dashboard for the Weights & Biases project you created.
