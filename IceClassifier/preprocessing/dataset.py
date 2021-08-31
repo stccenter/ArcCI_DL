@@ -6,6 +6,7 @@ from torch.utils.data import Dataset
 
 
 class IceTilesDataset(Dataset):
+
     def __init__(self, dataset_dir, transform=None):
         self.img_list = glob.glob(f'{dataset_dir}/image/*')
         self.img_list.sort()
