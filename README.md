@@ -2,7 +2,7 @@
 
 ###### Setting up files
 
-1. Create a folder titled arcci-dl and then copy IceClassifier, setpy.py, and train_model.py into your newly created folder.
+1. Create a folder titled arcci-dl and then copy IceClassifier, setpy.py, requirements.txt, and train_model.py into your newly created folder.
 2. Create a folder titled resources inside of your arcci-dl folder. Within your resources folder, create three folders titled datasets, models, and logs.
 3. Download the dataset [here](https://drive.google.com/drive/folders/1TDdFGWRyhGn7-ciDQX__if1jl-Rhmtpm?usp=sharing) and place the contents within your datasets folder.
 
