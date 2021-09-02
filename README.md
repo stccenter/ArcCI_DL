@@ -17,7 +17,7 @@ The project implementation supports the following:
 1. Create a conda environment with Python version 3.8 using ```conda create --name arcci-dl python=3.8```. If you do not have Anaconda, please download and install it from the [Anaconda site](https://www.anaconda.com/products/individual).
 2. Ensure you have NVIDIA CUDA Toolkit version 10.2 on your system. If not, please download and install it from the [NVIDIA Developer site](https://developer.nvidia.com/cuda-toolkit).
 3. Type ```conda activate arcci-dl```. You are now inside your virtual environment.
-4. Run ```pip install -r requirements.txt``` to install all necessary packages and model dependencies.
+4. Run ```pip install -r requirements.txt``` to install all necessary packages and model dependencies. If you encounter an issue with package installation, please install each package individually using conda-forge (e.g. ```conda install -c conda-forge pytorch==1.9.0```)
 
 ###### Set up Weights & Biases
 
