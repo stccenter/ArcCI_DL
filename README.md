@@ -23,7 +23,8 @@ The project implementation supports the following:
 
 1. Go to the [Weights & Biases site](https://wandb.ai/site) and create a Weights & Biases account and then a Weights & Biases project.
 2. With your conda environment active, type ```wandb init``` and follow the prompt to enter your account credentials and select the project you created.
-3. Run ```export WANDB_API_KEY=yourapikey``` with your Weights & Biases API key, which can be found in the settings section of your Weights & Biases account.
+3. In ```train_model.py```, change ```WANDB_PROJECT= 'yourprojectname'``` to match your Weights & Biases project name.
+4. Run ```export WANDB_API_KEY=yourapikey``` with your Weights & Biases API key, which can be found in the settings section of your Weights & Biases account.
 
 ## **Run the model**
 
