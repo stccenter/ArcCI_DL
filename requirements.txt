@@ -13,3 +13,4 @@ torchmetrics==0.4.1
 torchvision==0.10.0
 tqdm==4.62.0
 wandb
+cudatoolkit-11.2.2
