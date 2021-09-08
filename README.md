@@ -19,14 +19,6 @@ The project implementation supports the following:
 3. Type ```conda activate arcci-dl```. You are now inside your virtual environment.
 4. Run ```pip install -r requirements.txt``` to install all necessary packages and model dependencies. If you encounter an issue with package installation, please install each package individually using conda-forge (e.g. ```conda install -c conda-forge pytorch==1.9.0```).
 
-###### Set up Weights & Biases
-
-1. Go to the [Weights & Biases site](https://wandb.ai/site) and create a Weights & Biases account and then a Weights & Biases project.
-2. With your conda environment active, type ```wandb init``` and follow the prompt to enter your account credentials and select the project you created.
-3. In ```train_model.py```, change ```WANDB_PROJECT= 'yourprojectname'``` to match your Weights & Biases project name.
-4. Run ```export WANDB_API_KEY=yourapikey``` with your Weights & Biases API key, which can be found in the settings section of your Weights & Biases account.
-
 ## **Run the model**
 
 1. Run ```python train_model.py --log_every_n_steps=5 --backbone_model=fcn_resnet50 --batch_size=60 --gpus=1 --learning_rate=2.1029136274973522e-05 --max_epochs=100 --optimizer=Adam --local_mode=True```. Change the number of GPUs for distributed learning support (the default is one).
-2. View your run and runtime metrics in Weights & Biases by navigating to the dashboard for the Weights & Biases project you created.
