@@ -28,5 +28,5 @@ The project implementation supports the following:
 
 ## **Run the model**
 
-1. Run ```python train_model.py --log_every_n_steps=5 --backbone_model=fcn_resnet50 --batch_size=60 --gpus=1 --learning_rate=2.1029136274973522e-05 --max_epochs=100 --optimizer=Adam```. Change the number of GPUs for distributed learning support (the default is one).
+1. Run ```python train_model.py --log_every_n_steps=5 --backbone_model=fcn_resnet50 --batch_size=60 --gpus=1 --learning_rate=2.1029136274973522e-05 --max_epochs=100 --optimizer=Adam --local_mode=True```. Change the number of GPUs for distributed learning support (the default is one).
 2. View your run and runtime metrics in Weights & Biases by navigating to the dashboard for the Weights & Biases project you created.
