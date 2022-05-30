@@ -77,6 +77,9 @@ class IceClassifierSystem(pl.LightningModule):
         parser.add_argument('--batch_size', type=int, default=16)
         parser.add_argument('--backbone_model', type=str, default='deeplabv3_resnet101')
         parser.add_argument('--dataset', type=str, default='original')
+        parser.add_argument('--local_mode', type=bool, default=False)
+        parser.add_argument('--dataset_path', type=str,
+                            default='./resources/datasets/ice-tiles-dataset-badlight/256x256')
         parser.add_argument('--optimizer', type=str, default='AdamW')
         parser.add_argument('--learning_rate', type=float, default=5e-5)
         return parent_parser

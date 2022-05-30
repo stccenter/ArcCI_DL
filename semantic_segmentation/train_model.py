@@ -33,7 +33,7 @@ TMP_DIR = './resources/tmp_ice_data'
 TENSORBOARD_DIR = './resources/logs'
 CHECKPOINT_DIR = './resources/models'
 
-WANDB_PROJECT = 'IceClassification5'
+WANDB_PROJECT = 'IceClassification'
 WANDB_ENTITY = 'semanticsegmentation'
 
 
@@ -44,18 +44,21 @@ def main():
     parser = IceClassifierSystem.add_model_specific_args(parser)
     args = parser.parse_args()
 
-    wandb.init(
-        job_type='model-training',
-        project=WANDB_PROJECT,
-        entity=WANDB_ENTITY,
-        settings=wandb.Settings(start_method="thread")
-    )
+    is_local_mode = args.local_mode
+    if not is_local_mode:
+        wandb.init(
+            job_type='model-training',
+            project=WANDB_PROJECT,
+            entity=WANDB_ENTITY,
+            settings=wandb.Settings(start_method="thread")
+        )
 
     run_id = generate_run_id()
     create_folders(run_id)
     system, tiles_dm = create_system_and_dataset(run_id, args)
-    callbacks = create_callbacks(run_id, args, save_checkpoints=False)
-    loggers = create_loggers(run_id, system, use_tensorboard=False)
+
+    callbacks = create_callbacks(run_id, args, save_checkpoints=is_local_mode, save_examples=not is_local_mode)
+    loggers = create_loggers(run_id, system, use_tensorboard=is_local_mode, use_wandb=not is_local_mode)
 
     trainer = Trainer.from_argparse_args(args, callbacks=callbacks, logger=loggers, deterministic=True)
     trainer.fit(system, tiles_dm)
@@ -73,14 +76,8 @@ def create_folders(run_id):
 
 
 def create_system_and_dataset(run_id, args):
-    dataset_name = f'ice-tiles-dataset-{args.dataset}'
     loss_weights = LOSS_WEIGHTS.get(args.dataset, [1. for _ in range(NUM_CLASSES)])
-    tiles_dm = IceTilesDataModule(
-        dataset_name=dataset_name,
-        tmp_dir=f'{TMP_DIR}/{run_id}',
-        tile_shape=TILE_SHAPE,
-        batch_size=args.batch_size
-    )
+    tiles_dm = __create_dataset(run_id, args)
     system = IceClassifierSystem(
         num_classes=NUM_CLASSES,
         backbone_model=args.backbone_model,
@@ -89,6 +86,24 @@ def create_system_and_dataset(run_id, args):
         loss_weights=loss_weights
     )
     return system, tiles_dm
+
+
+def __create_dataset(run_id, args):
+    if args.local_mode:
+        return IceTilesDataModule(
+            tmp_dir=args.dataset_path,
+            dataset_name=None,
+            tile_shape=None,
+            batch_size=args.batch_size
+        )
+    else:
+        dataset_name = f'ice-tiles-dataset-{args.dataset}'
+        return IceTilesDataModule(
+            tmp_dir=f'{TMP_DIR}/{run_id}',
+            dataset_name=dataset_name,
+            tile_shape=TILE_SHAPE,
+            batch_size=args.batch_size
+        )
 
 
 def create_callbacks(run_id, args, save_checkpoints=True, save_examples=True):
@@ -100,8 +115,8 @@ def create_callbacks(run_id, args, save_checkpoints=True, save_examples=True):
     if save_examples:
         dataset_name = f'ice-tiles-examples-{args.dataset}'
         log_images_callback = LogExamplesCallback(
-            dataset_name=dataset_name,
             tmp_dir=f'{TMP_DIR}/{run_id}',
+            dataset_name=dataset_name,
             class_labels=SEG_CLASSES,
             tile_shape=TILE_SHAPE,
             batch_size=args.batch_size

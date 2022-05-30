@@ -14,7 +14,7 @@ The project implementation supports the following:
 4. Download the dataset [here](https://drive.google.com/drive/folders/1mGczHAOYH0Vxe5ZK2yynDdqnmvSpuf1c) and place the 256x256 folder within your ice-tiles-dataset-badlight folder.
 
 ###### Set up your virtual environment
- 
+
 1. Create a conda environment with Python version 3.8 using ```conda create --name arcci-dl python=3.8```. If you do not have Anaconda, please download and install it from the [Anaconda site](https://www.anaconda.com/products/individual).
 2. Ensure you have NVIDIA CUDA Toolkit version 11.1 on your system. If not, please download and install it from the [NVIDIA Developer site](https://developer.nvidia.com/cuda-toolkit).
 3. Type ```conda activate arcci-dl```. You are now inside your virtual environment.

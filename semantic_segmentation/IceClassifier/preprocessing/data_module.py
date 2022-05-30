@@ -22,21 +22,23 @@ NUM_WORKERS = min(os.cpu_count(), 4)
 class IceTilesDataModule(pl.LightningDataModule):
     def __init__(
             self,
-            dataset_name: str = 'ice-tiles-dataset-original',
             tmp_dir: str = './tmp_ice_data',
-            tile_shape: Tuple[int, int] = (256, 256),
+            dataset_name: Optional[str] = None,
+            tile_shape: Optional[Tuple[int, int]] = (256, 256),
             batch_size: int = 16
     ):
         super().__init__()
         self.dataset_name = dataset_name
         self.tmp_dir = tmp_dir
         self.tile_shape = tile_shape
-        self.output_dir = None
         self.batch_size = batch_size
+        self.cloud_dataset = dataset_name is not None
+        self.output_dir = tmp_dir if not self.cloud_dataset else None
 
     def setup(self, stage: Optional[str] = None):
-        make_dir(self.tmp_dir)
-        self.__fetch_tiles()
+        if self.cloud_dataset:
+            make_dir(self.tmp_dir)
+            self.__fetch_tiles()
 
     def __fetch_tiles(self):
         dataset_dir_root = f'{self.tmp_dir}/{self.dataset_name}'
@@ -73,5 +75,6 @@ class IceTilesDataModule(pl.LightningDataModule):
         return self.__create_dataloader(test_dataset)
 
     def teardown(self, stage=None):
-        shutil.rmtree(f'{self.tmp_dir}/{self.dataset_name}', ignore_errors=True)
-        shutil.rmtree(self.output_dir, ignore_errors=True)
+        if self.cloud_dataset:
+            shutil.rmtree(f'{self.tmp_dir}/{self.dataset_name}', ignore_errors=True)
+            shutil.rmtree(self.output_dir, ignore_errors=True)
