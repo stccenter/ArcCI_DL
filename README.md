@@ -4,6 +4,26 @@ The project implementation supports the following:
 - Single GPU implementation
 - Multiple GPUs for distributed learning
 
+###### Files and Folders
+
+old_semantic_segmentation
+- Original version of the ArcCI Deep Learning code in .ipynb format. This should not be used, and is only included in this repo for reference.
+
+semantic_segmentation
+- Latest version of the ArcCI Deep Learning code. This is the version you should use.
+
+image_tuning.ipynb
+- Image Tuning code used to view the effects of CLAHE histogram equalization and view original image alongside the labeled mask with cropping and rotation implemented. Can be opened with Google Colab.
+
+data_splitting_goodlight.ipynb
+- Dataset creation code for images taken under good lighting conditions. Includes image cropping and rotation, prints out weights. Does not have CLAHE active. Code is set up to upload the created dataset to Weights & Biases. Can be opened with Google Colab.
+
+data_splitting_badlight.ipynb
+- Dataset creation code for images taken under bad lighting conditions. Includes image cropping and rotation, prints out weights. Has CLAHE active. Code is set up to upload the created dataset to Weights & Biases. Can be opened with Google Colab.
+
+results.ipynb
+- Takes a model trained through Weights & Biases and outputs classification results. Can be opened with Google Colab.
+
 ## **Setup**
 
 ###### Set up files
